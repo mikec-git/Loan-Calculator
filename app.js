@@ -18,11 +18,12 @@ function calculateResults(e){
     const monthlyInterestRate   = parseFloat(UIinterest.value) / (100 * 12);
     const monthlyPayment        = (monthlyInterestRate * principal)/(1 - Math.pow(1 + monthlyInterestRate, -months));
     
-    const totalPayment  = monthlyPayment * months;
-    const totalInterest = totalPayment - principal;
-
-    // UI results
-    UImonthlyPayment.value  = monthlyPayment.toFixed(2);
-    UItotalPayment.value    = totalPayment.toFixed(2);
-    UItotalInterest.value   = totalInterest.toFixed(2);
+    if(isFinite(monthlyPayment)){
+        // UI Results
+        UImonthlyPayment.value  = monthlyPayment.toFixed(2);
+        UItotalPayment.value    = (monthlyPayment * months).toFixed(2);
+        UItotalInterest.value   = ((monthlyPayment * months) - principal).toFixed(2);
+    } else{
+        console.log('Please check your numbers...');
+    }
 }
